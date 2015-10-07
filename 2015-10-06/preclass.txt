@@ -1,7 +1,11 @@
 0.  How much time did you spend on this pre-class exercise, and when?
 
+	Around an hour after class on 10/06
+
 1.  What are one or two points that you found least clear in the
     10/06 slide decks (including the narration)?
+
+	The bit about communicators and how messages are sent in contexts, is unclear.
 
 2.  In the upcoming lecture (10/8), we will discuss how to model
     latency and bandwidth of MPI sends and receives using the
@@ -21,7 +25,28 @@
        you will have to add a module load to the start of the PBS
        scripts).  How do the timings differ from the Intel MPI timings?
 
+		For inter-core MP:
+		Intel MPI is initially slower than OpenMPI for smaller message sizes, but eventually becomes faster at larger message sizes.
+
+		For inter-chip MP:
+		The mpicc versions follow the same trend for inter-chip communication.
+
+		For inter-node MP:
+		The inter-node comm is extremely slow as shown in class.
+
     c) When running at the peak rate (e.g. 16 double precision
        flops/cycle), how many (double precision) floating point ops
        could two totient cores do in the minimal time required for one
        MPI message exchange?
+
+		Minimum time required for one MPI exchange ~ 3e-07
+		Total cores = 2
+		CPU speed on totient clusters = 2.4 GHz
+
+		Peak flop rate (FLOPS/s) = number of cores * peak (FLOPS/cycle) * CPU speed (cycles/s)
+		= 2 * 16 * 2.4e9
+		= 7.68e10 FLOPS/s
+
+		Number of double precision FLOPS = peak FLOP rate * Min time
+		= 7.68e10 * 3e-7
+		~ 23000 FLOPS
